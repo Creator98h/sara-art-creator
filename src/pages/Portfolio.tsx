@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ResizableNavbar } from "@/components/ui/resizable-navbar";
 import { MovingBorderButton } from "@/components/ui/moving-border-button";
 import { Timeline } from "@/components/ui/timeline";
@@ -35,8 +36,8 @@ import brand3 from "@/assets/brand-3.png";
 import brand4 from "@/assets/brand-4.png";
 
 const Portfolio = () => {
+  const navigate = useNavigate();
   const [selectedCampaign, setSelectedCampaign] = useState<string | null>(null);
-  const [workModalOpen, setWorkModalOpen] = useState(false);
 
   const navItems = [
     { label: "HOME", href: "#home" },
@@ -269,14 +270,17 @@ const Portfolio = () => {
             
             <GlowingGallery 
               images={featuredWorks}
-              onImageClick={() => setWorkModalOpen(true)}
+              itemsPerSlide={2}
+              autoSlide={true}
+              slideInterval={4000}
+              onImageClick={() => navigate("/works")}
             />
             
             <MovingBorderButton 
               variant="accent"
-              onClick={() => setWorkModalOpen(true)}
+              onClick={() => navigate("/works")}
             >
-              See All Works
+              See More Works
               <ChevronRight className="h-4 w-4 ml-2" />
             </MovingBorderButton>
           </div>
@@ -507,38 +511,6 @@ const Portfolio = () => {
         )}
       </TracingBeamModal>
 
-      {/* Works Modal */}
-      <TracingBeamModal
-        isOpen={workModalOpen}
-        onClose={() => setWorkModalOpen(false)}
-        title="Complete Works Portfolio"
-        subtitle="Comprehensive showcase of projects across all categories"
-      >
-        <div className="space-y-12">
-          {[
-            { title: "Digital & Web Design", image: projectWebDesign },
-            { title: "Illustration", image: projectIllustration },
-            { title: "Photography", image: projectPhotography },
-            { title: "Branding", image: projectBranding }
-          ].map((category, index) => (
-            <div key={category.title} className="space-y-4">
-              <h3 className="text-xl font-semibold text-primary">{category.title}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <img
-                  src={category.image}
-                  alt={category.title}
-                  className="w-full h-48 object-cover rounded-lg glow-effect cursor-pointer"
-                />
-                <img
-                  src={category.image}
-                  alt={category.title}
-                  className="w-full h-48 object-cover rounded-lg glow-effect cursor-pointer"
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      </TracingBeamModal>
     </div>
   );
 };
