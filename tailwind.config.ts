@@ -18,6 +18,9 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				inter: ['Inter', 'system-ui', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -44,6 +47,10 @@ export default {
 					DEFAULT: 'hsl(var(--accent))',
 					foreground: 'hsl(var(--accent-foreground))'
 				},
+				golden: {
+					DEFAULT: 'hsl(var(--golden))',
+					foreground: 'hsl(var(--golden-foreground))'
+				},
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',
 					foreground: 'hsl(var(--popover-foreground))'
@@ -62,6 +69,21 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			backgroundImage: {
+				'gradient-hero': 'var(--gradient-hero)',
+				'gradient-accent': 'var(--gradient-accent)',
+				'gradient-soft': 'var(--gradient-soft)',
+				'gradient-golden': 'var(--gradient-golden)',
+			},
+			boxShadow: {
+				'elegant': 'var(--shadow-elegant)',
+				'accent': 'var(--shadow-accent)',
+				'glow': 'var(--shadow-glow)',
+			},
+			transitionProperty: {
+				'elegant': 'var(--transition-elegant)',
+				'smooth': 'var(--transition-smooth)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

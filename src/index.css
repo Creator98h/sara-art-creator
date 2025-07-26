@@ -8,33 +8,55 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Design System for Art Director Portfolio */
+    --background: 0 0% 99%;
+    --foreground: 220 13% 18%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 13% 18%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 13% 18%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Sophisticated Art Director Colors */
+    --primary: 220 13% 18%;
+    --primary-foreground: 0 0% 98%;
+    
+    --secondary: 210 11% 96%;
+    --secondary-foreground: 220 13% 18%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 11% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Vibrant Accent - Coral */
+    --accent: 14 83% 60%;
+    --accent-foreground: 0 0% 98%;
+    
+    /* Golden Accent */
+    --golden: 45 93% 58%;
+    --golden-foreground: 220 13% 18%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 14 83% 60%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Sophisticated Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(220 13% 18%) 0%, hsl(220 20% 25%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(14 83% 60%) 0%, hsl(25 95% 65%) 100%);
+    --gradient-soft: linear-gradient(180deg, hsl(0 0% 99%) 0%, hsl(210 11% 96%) 100%);
+    --gradient-golden: linear-gradient(135deg, hsl(45 93% 58%) 0%, hsl(38 100% 62%) 100%);
+
+    /* Shadows */
+    --shadow-elegant: 0 4px 20px -2px hsl(220 13% 18% / 0.1);
+    --shadow-accent: 0 8px 32px -8px hsl(14 83% 60% / 0.3);
+    --shadow-glow: 0 0 40px hsl(14 83% 60% / 0.2);
+
+    /* Animation Variables */
+    --transition-elegant: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.3s ease-out;
 
     --radius: 0.5rem;
 
@@ -100,6 +122,126 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium tracking-tight;
+  }
+}
+
+@layer components {
+  /* Moving Border Animation */
+  .moving-border {
+    @apply relative overflow-hidden rounded-full;
+  }
+  
+  .moving-border::before {
+    content: '';
+    @apply absolute inset-0 rounded-full;
+    background: var(--gradient-accent);
+    animation: rotate 4s linear infinite;
+    z-index: -1;
+  }
+  
+  .moving-border::after {
+    content: '';
+    @apply absolute inset-[2px] rounded-full bg-background;
+    z-index: -1;
+  }
+
+  /* Glowing Effect */
+  .glow-effect {
+    @apply relative;
+    transition: var(--transition-elegant);
+  }
+  
+  .glow-effect:hover {
+    filter: drop-shadow(var(--shadow-glow));
+    transform: translateY(-2px);
+  }
+
+  /* Timeline styles */
+  .timeline-line {
+    @apply absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-accent via-golden to-accent;
+  }
+
+  /* Smooth scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-secondary;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-accent rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-accent/80;
+  }
+}
+
+@layer utilities {
+  /* Animation keyframes */
+  @keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes slide-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-slide-in-up {
+    animation: slide-in-up 0.6s ease-out;
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-golden-text {
+    background: var(--gradient-golden);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
