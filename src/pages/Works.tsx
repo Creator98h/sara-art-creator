@@ -72,18 +72,21 @@ const Works = () => {
         }))} 
       />
 
+      {/* Sticky Back Button */}
+      <div className="fixed top-6 left-6 z-50">
+        <button
+          onClick={() => navigate("/")}
+          className="flex items-center gap-2 px-4 py-2 bg-accent text-accent-foreground rounded-full shadow-lg hover:shadow-xl transition-all duration-200 backdrop-blur-sm border border-accent/20"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Portfolio
+        </button>
+      </div>
+
       {/* Header */}
       <section className="pt-32 pb-16 bg-gradient-soft">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
-            <button
-              onClick={() => navigate("/")}
-              className="flex items-center text-accent hover:text-primary transition-colors mb-8"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Portfolio
-            </button>
-            
             <div className="text-center space-y-4">
               <h1 className="text-5xl font-bold text-primary">Complete Works</h1>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

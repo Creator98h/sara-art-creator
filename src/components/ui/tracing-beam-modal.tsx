@@ -34,21 +34,21 @@ export const TracingBeamModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden p-0 bg-gradient-soft">
-        <div className="relative h-full">
+      <DialogContent className="max-w-4xl max-h-[90vh] p-0 bg-background border border-accent/20">
+        <div className="relative h-full max-h-[90vh] flex flex-col">
           {/* Tracing beam effect */}
-          <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-accent via-golden to-accent opacity-60" />
+          <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-accent via-accent/50 to-accent opacity-40" />
           
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-50 p-2 rounded-full bg-white/90 hover:bg-white transition-all duration-200"
+            className="absolute top-4 right-4 z-50 p-2 rounded-full bg-accent/10 hover:bg-accent/20 transition-all duration-200"
           >
             <X className="h-5 w-5 text-primary" />
           </button>
 
           {/* Content */}
-          <div className="overflow-y-auto h-full">
+          <div className="overflow-y-auto flex-1">
             <div className="pl-20 pr-8 py-8">
               <div className="space-y-6">
                 <div className="space-y-2">

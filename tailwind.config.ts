@@ -19,7 +19,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				inter: ['Inter', 'system-ui', 'sans-serif'],
+				sans: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

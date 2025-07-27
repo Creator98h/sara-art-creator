@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ResizableNavbar } from "@/components/ui/resizable-navbar";
 import { MovingBorderButton } from "@/components/ui/moving-border-button";
@@ -6,6 +6,8 @@ import { Timeline } from "@/components/ui/timeline";
 import { GlowingGallery } from "@/components/ui/glowing-gallery";
 import { TracingBeamModal } from "@/components/ui/tracing-beam-modal";
 import { LogoCarousel } from "@/components/ui/logo-carousel";
+import { DraggableCards } from "@/components/ui/draggable-cards";
+import { ServiceWithBeam } from "@/components/ui/service-with-beam";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -68,38 +70,54 @@ const Portfolio = () => {
 
   const experienceTimeline = [
     {
-      title: "Senior Art Director",
-      date: "2022-Present",
-      description: "Leading creative direction for major brand campaigns at Creative Agency Tehran. Managing teams of 12+ designers and overseeing 50+ projects annually.",
+      title: "Social project management of Babyrst & Seagull brands",
+      date: "Apr 2022 - Present",
+      description: "Project manager & Art Director for social media projects and brand management.",
     },
     {
-      title: "Art Director", 
-      date: "2020-2022",
-      description: "Developed visual concepts for digital campaigns with 200% engagement increase. Specialized in social media and web design.",
+      title: "Dr Akhavi Laboratory",
+      date: "May 2020 - Apr 2022",
+      description: "Advertising manager working with various healthcare and laboratory brands.",
     },
     {
-      title: "Senior Graphic Designer",
-      date: "2018-2020",
-      description: "Created compelling visuals for print and digital media. Won 3 design awards for innovative branding solutions.",
-    }
+      title: "Freelance project",
+      date: "2019 - Present",
+      description: "Art Director for multiple independent projects and brand consultations.",
+    },
+    {
+      title: "Magnolia Advertising Agency",
+      date: "Dec 2018 - Jul 2019",
+      description: "Graphic Designer and Illustrator working with international corporations.",
+    },
+    {
+      title: "Domino Dairy and Ice Cream",
+      date: "Jan 2018 - May 2020",
+      description: "Freelance Graphic Designer and Illustrator for product packaging and marketing.",
+    },
+    {
+      title: "Four Mind Advertising Agency",
+      date: "Feb 2017 - Dec 2018",
+      description: "Graphic Designer and Illustrator collaborating with international corporations.",
+    },
+    {
+      title: "Stavita Manufacturing Group",
+      date: "2013 - 2016",
+      description: "Art Director responsible for brand identity and visual communications.",
+    },
+    {
+      title: "Simavid Company",
+      date: "2009 - 2010",
+      description: "Visual Development and Modeler creating 3D assets and visual content.",
+    },
   ];
 
   const featuredWorks = [
-    {
-      src: projectWebDesign,
-      alt: "Digital Web Design",
-      title: "E-commerce Platform Redesign"
-    },
-    {
-      src: projectIllustration, 
-      alt: "Creative Illustration",
-      title: "Brand Illustration Series"
-    },
-    {
-      src: projectPhotography,
-      alt: "Professional Photography",
-      title: "Product Photography Campaign"
-    }
+    { src: projectWebDesign, alt: "Web Design Project", title: "Modern E-commerce Platform" },
+    { src: projectIllustration, alt: "Illustration Project", title: "Brand Illustration Series" },
+    { src: projectPhotography, alt: "Photography Project", title: "Product Photography" },
+    { src: projectBranding, alt: "Branding Project", title: "Corporate Identity" },
+    { src: campaignMarketing, alt: "Marketing Campaign", title: "Digital Marketing Campaign" },
+    { src: campaignSocial, alt: "Social Campaign", title: "Social Media Strategy" }
   ];
 
   const campaigns = [
@@ -123,24 +141,19 @@ const Portfolio = () => {
 
   const services = [
     {
-      icon: <Palette className="h-6 w-6" />,
+      icon: "🎨",
       title: "Art Direction",
       description: "Strategic visual leadership for campaigns, brands, and creative projects with focus on innovative storytelling."
     },
     {
-      icon: <Lightbulb className="h-6 w-6" />,
+      icon: "💡",
       title: "Visual Concept Development", 
       description: "Transform abstract ideas into compelling visual narratives that resonate with target audiences."
     },
     {
-      icon: <PenTool className="h-6 w-6" />,
+      icon: "✏️",
       title: "Illustration",
       description: "Custom illustrations, digital art, and graphic elements that enhance brand identity and messaging."
-    },
-    {
-      icon: <Target className="h-6 w-6" />,
-      title: "Branding Consultancy",
-      description: "Comprehensive brand strategy, identity design, and implementation across all touchpoints."
     }
   ];
 
@@ -268,13 +281,31 @@ const Portfolio = () => {
               A showcase of recent projects spanning digital design, illustration, and photography.
             </p>
             
-            <GlowingGallery 
-              images={featuredWorks}
-              itemsPerSlide={2}
-              autoSlide={true}
-              slideInterval={4000}
-              onImageClick={() => navigate("/works")}
-            />
+            <DraggableCards className="pb-8">
+              {featuredWorks.map((work, index) => (
+                <div 
+                  key={index}
+                  className="min-w-80 glossy-card rounded-xl p-1 cursor-pointer group"
+                  onClick={() => navigate("/works")}
+                >
+                  <div className="bg-background rounded-lg overflow-hidden">
+                    <div className="relative overflow-hidden">
+                      <img
+                        src={work.src}
+                        alt={work.alt}
+                        className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-lg font-semibold text-primary group-hover:text-accent transition-colors">
+                        {work.title}
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </DraggableCards>
             
             <MovingBorderButton 
               variant="accent"
@@ -322,31 +353,14 @@ const Portfolio = () => {
       {/* Services Section */}
       <section id="services" className="py-20 bg-gradient-soft">
         <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-16 text-primary">Services & Expertise</h2>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {services.map((service, index) => (
-                <Card 
-                  key={index}
-                  className="text-center group hover:shadow-accent transition-all duration-300 animate-slide-in-up"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <CardHeader>
-                    <div className="mx-auto mb-4 p-3 bg-accent/10 rounded-full text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
-                      {service.icon}
-                    </div>
-                    <CardTitle className="text-lg">{service.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-center leading-relaxed">
-                      {service.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-primary mb-4">Services & Expertise</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Comprehensive creative solutions tailored to elevate your brand and connect with your audience.
+            </p>
           </div>
+          
+          <ServiceWithBeam services={services} />
         </div>
       </section>
 
